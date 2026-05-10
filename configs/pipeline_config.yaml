@@ -1,0 +1,44 @@
+vlm:
+  model: "blip2"  # blip2 | llava
+  blip2_model_id: "Salesforce/blip2-opt-2.7b"
+  llava_model_id: "llava-hf/llava-1.5-7b-hf"
+  device: "cuda"  # cuda | cpu
+  max_new_tokens: 128
+  temperature: 0.3
+  batch_size: 8
+
+  # confidence threshold for accepting auto-generated labels
+  confidence_threshold: 0.75
+
+ontology:
+  # prompts are constructed from ontology definitions in src/dataset/ontology.py
+  use_chain_of_thought: true
+  max_prompt_length: 512
+
+labeling:
+  input_dir: "/data/unlabeled"
+  output_dir: "/data/auto_labeled"
+  checkpoint_file: "./labeling_checkpoint.json"
+  skip_existing: true
+  save_every_n: 100
+
+  # filtering rules
+  min_image_size: [64, 64]
+  max_image_size: [4096, 4096]
+  allowed_extensions: [".jpg", ".jpeg", ".png", ".webp"]
+
+s3:
+  bucket_name: "your-bucket-name"
+  dataset_prefix: "datasets/road-user-attributes"
+  model_prefix: "models/vit-attribute-classifier"
+  region: "us-east-1"
+
+  # set via environment variables, not here
+  # AWS_ACCESS_KEY_ID
+  # AWS_SECRET_ACCESS_KEY
+
+serving:
+  model_path: "./checkpoints/best_model"
+  device: "cuda"
+  max_batch_size: 16
+  image_size: 224
