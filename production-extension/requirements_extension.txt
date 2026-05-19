@@ -1,0 +1,10 @@
+# production extension dependencies
+# add these to the original requirements.txt
+
+ultralytics>=8.1.0      # YOLOv8 detection
+opencv-python>=4.9.0    # video reading + frame ops
+streamlit>=1.31.0       # dashboard UI
+requests>=2.31.0        # dashboard -> API calls
+
+# already in original requirements.txt (listed for clarity):
+# fastapi, uvicorn, pydantic, torch, transformers, loguru, numpy, Pillow
